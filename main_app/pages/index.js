@@ -1,23 +1,21 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useAccount } from 'wagmi';
 
 const index = () => {
 	const myrouter = useRouter();
-	const mySigner = useSelector((state) => state.signer.mySigner);
+	const { address } = useAccount();
 
 	useEffect(() => {
-		if (mySigner === '') {
+		if (!address) {
 			myrouter.replace('/login');
 		}
-	}, []);
+	}, [address]);
 
 	return (
 		<div>
 			<div>Hello world</div>
-			<div>my signer is : {mySigner}</div>
+			<div>my signer is : {address}</div>
 		</div>
 	);
 };
