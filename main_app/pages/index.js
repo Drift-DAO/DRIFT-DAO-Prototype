@@ -5,21 +5,21 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 const index = () => {
-  const myrouter = useRouter();
-  const mySigner = useSelector((state) => state.signer.mySigner);
+	const myrouter = useRouter();
+	const mySigner = useSelector((state) => state.signer.mySigner);
 
-  useEffect(() => {
-    if (mySigner === '') {
-      myrouter.replace('/login');
-    }
-  }, []);
+	useEffect(() => {
+		if (mySigner === '') {
+			myrouter.replace('/login');
+		}
+	}, []);
 
-  return (
-    <div>
-      <div>Hello world</div>
-      <div>my signer is : {mySigner}</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>Hello world</div>
+			<div>my signer is : {mySigner}</div>
+		</div>
+	);
 };
 
 export default index;

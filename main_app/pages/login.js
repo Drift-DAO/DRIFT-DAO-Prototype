@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import LoginPage from '../components/loginComponents/LoginPage';
 
 const login = () => {
 	const router = useRouter();
@@ -16,8 +17,7 @@ const login = () => {
 
 	return (
 		<div>
-			<div>login</div>
-			<div>my signer: {mySigner}</div>
+			<LoginPage />
 		</div>
 	);
 };
