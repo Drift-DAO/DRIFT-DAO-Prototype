@@ -1,4 +1,6 @@
 import '../styles/globals.css';
+import 'simplebar-react/dist/simplebar.min.css';
+
 import '@rainbow-me/rainbowkit/styles.css';
 import {
 	getDefaultWallets,
@@ -17,7 +19,7 @@ const { chains, provider } = configureChains(
 	[publicProvider()]
 );
 const { connectors } = getDefaultWallets({
-	appName: 'My RainbowKit App',
+	appName: 'Drift-DAO',
 	chains,
 });
 const wagmiClient = createClient({
