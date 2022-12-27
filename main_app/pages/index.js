@@ -11,7 +11,7 @@ const index = () => {
 
 	useEffect(() => {
 		if (!address) {
-			// myrouter.replace('/login');
+			myrouter.replace('/login');
 		}
 	}, [address]);
 
