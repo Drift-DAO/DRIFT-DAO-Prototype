@@ -1,12 +1,10 @@
 import React from "react";
 import { Collapse, Grid, Text } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
-import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css";
 
 const Right = () => {
   return (
-    <Grid.Container gap={2} accordion={true} className="bg-red-300">
+    <Grid.Container gap={2} >
       <Grid>
         <Collapse shadow title="Announcements" subtitle="description" expanded>
           <Button className="bg-blend-color" rounded flat>
