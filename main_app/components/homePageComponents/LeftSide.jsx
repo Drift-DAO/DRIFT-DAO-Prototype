@@ -7,8 +7,8 @@ import SimpleBar from 'simplebar-react';
 const LeftBar = () => {
 	return (
 		<div
-			className="bg-gradient-to-r from-purple-500 to-pink-900 mx-2 my-2"
-			style={{ width: '6vw', borderRadius: '15px' }}
+			className="bg-gradient-to-r from-purple-900  mx-2 my-2 "
+			style={{ width: '6vw', borderRadius: '15px',borderWidth:"2px", borderColor:"#240338" }}
 		>
 			<div className="divide-y  divide-dashed">
 				<div style={{ height: '85vh' }} className="py-2 overflow-hidden">
