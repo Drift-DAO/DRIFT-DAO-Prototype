@@ -5,22 +5,23 @@ import DaoIconComponent from '../leftSideComponents/upperPart/DaoIconComponent';
 import SimpleBar from 'simplebar-react';
 
 const LeftBar = () => {
+	
 	return (
 		<div
-			className="bg-gradient-to-r from-purple-900  mx-2 my-2 "
-			style={{ width: '6vw', borderRadius: '15px',borderWidth:"2px", borderColor:"#240338" }}
+			className="bg-gradient-to-r from-purple-900  mx-2 my-2 rounded-2xl"
+			style={{ width: '6vw', borderWidth: '2px', borderColor: '#240338' }}
 		>
 			<div className="divide-y  divide-dashed">
 				<div style={{ height: '85vh' }} className="py-2 overflow-hidden">
 					<SimpleBar style={{ maxHeight: '83vh' }}>
 						<div className="">
 							<DaoIconComponent
-								name="biconomy"
+								name="polygon"
 								img="/mainPageLogo/polygon.png"
 								active={true}
 							/>
 							<DaoIconComponent
-								name="biconomy"
+								name="ens"
 								img="/mainPageLogo/ens.png"
 								active={true}
 							/>
