@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Swal from 'sweetalert2';
 import { useDisconnect } from 'wagmi';
 import { motion } from 'framer-motion';
+import { Tooltip } from "@nextui-org/react";
+
 
 const ExitButton = () => {
 	const { disconnect } = useDisconnect();
@@ -24,17 +26,28 @@ const ExitButton = () => {
 	};
 
 	return (
-		<div className="flex justify-center justify-items-center">
-			<motion.div
-				whileHover={{ scale: 0.9 }}
-				transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-			>
-				<button onClick={logoutBtnClicked}>
-					<Image src="/icons/logout.png" width={45} height={45} alt="account" />
-				</button>
-			</motion.div>
-		</div>
-	);
+    <div className="flex justify-center justify-items-center">
+      <motion.div
+        whileHover={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        <Tooltip
+          content={"logout"}
+          placement="rightStart"
+          color="error"
+        >
+          <button onClick={logoutBtnClicked}>
+            <Image
+              src="/icons/logout.png"
+              width={45}
+              height={45}
+              alt="account"
+            />
+          </button>
+        </Tooltip>
+      </motion.div>
+    </div>
+  );
 };
 
 export default ExitButton;

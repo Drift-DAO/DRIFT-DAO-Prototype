@@ -16,7 +16,7 @@ const DaoIconComponent = ({ img, name, active }) => {
 			>
 				<button className="overflow-hidden">
 					<Image
-						className="rounded-3xl bg-white"
+						className="rounded-lg bg-white"
 						src={img}
 						width={45}
 						height={45}
