@@ -13,7 +13,14 @@ const ForumPostComponent = ({ post }) => {
 	const time = JSON.stringify(moment.unix(post.timestamp)._d);
 
 	const fetchReaction = async () => {
-		let { data, error } = await orbis.getReaction(post.stream_id, post.creator);
+		let res = await orbis.isConnected();
+		if (!res) {
+			await orbis.connect_v2({
+				provider: window.ethereum,
+				lit: false,
+			});
+		}
+		let { data, error } = await orbis.getReaction(post.stream_id, res.did);
 		if (data) {
 			setReaction(data.type);
 		} else {
@@ -35,8 +42,8 @@ const ForumPostComponent = ({ post }) => {
 			if (totalDislikes > 0) {
 				setTotalDislikes(totalDislikes - 1);
 			}
-			setTotalLikes(totalLikes + 1);
 		}
+		setTotalLikes(totalLikes + 1);
 		setReaction('like');
 		let res = await orbis.isConnected();
 		if (!res) {
@@ -54,11 +61,11 @@ const ForumPostComponent = ({ post }) => {
 			return;
 		}
 		if (reaction === 'like') {
-			setTotalDislikes(totalDislikes + 1);
 			if (totalLikes > 0) {
 				setTotalLikes(totalLikes - 1);
 			}
 		}
+		setTotalDislikes(totalDislikes + 1);
 		setReaction('downvote');
 		let res = await orbis.isConnected();
 		if (!res) {
