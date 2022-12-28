@@ -36,9 +36,7 @@ const CreateAnnouncementPost = () => {
 				onPress={createAnnouncementButtonClicked}
 				style={{ width: '50vw' }}
 			>
-            <div className='text-lg'>
-				create announcement post
-                </div>
+				<div className="text-lg">create announcement post</div>
 			</Button>
 			<Modal
 				preventClose
@@ -51,7 +49,9 @@ const CreateAnnouncementPost = () => {
 			>
 				<Modal.Header>
 					<div>
-						<div className="font-bold text-2xl text-pink-600">📢 New announcement</div>
+						<div className="font-bold text-2xl text-pink-600">
+							📢 New announcement
+						</div>
 						<hr style={{ width: '40vw' }} />
 					</div>
 				</Modal.Header>
@@ -90,11 +90,11 @@ const CreateAnnouncementPost = () => {
 					</div>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button size="md" light color="error" onPress={closeHandler}>
-						cancel
+					<Button size="md" flat color="error" onPress={closeHandler}>
+						<div className="text-xl">cancel</div>
 					</Button>
 					<Button size="md" onPress={postBtnClicked} color="gradient">
-						post
+						<div className="text-xl">post</div>
 					</Button>
 				</Modal.Footer>
 			</Modal>

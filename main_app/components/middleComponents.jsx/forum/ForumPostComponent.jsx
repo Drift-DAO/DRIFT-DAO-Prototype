@@ -65,7 +65,7 @@ const ForumPostComponent = ({ currLeft }) => {
 									/>
 								</button>
 							</div>
-							<div className="flex mx-2">
+							{/* <div className="flex mx-2">
 								<div className="mx-1 my-1">5</div>
 								<button className="">
 									<Image
@@ -75,7 +75,7 @@ const ForumPostComponent = ({ currLeft }) => {
 										alt="comment"
 									/>
 								</button>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

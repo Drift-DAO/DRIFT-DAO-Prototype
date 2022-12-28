@@ -36,9 +36,7 @@ const CreateForumPost = () => {
 				onPress={createPostButtonClicked}
 				style={{ width: '50vw' }}
 			>
-            <div className='text-lg'>
-				Create post
-                </div>
+				<div className="text-lg">Create post</div>
 			</Button>
 			<Modal
 				preventClose
@@ -90,11 +88,11 @@ const CreateForumPost = () => {
 					</div>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button size="md" light color="error" onPress={closeHandler}>
-						cancel
+					<Button size="md" flat color="error" onPress={closeHandler}>
+						<div className="text-xl">cancel</div>
 					</Button>
 					<Button size="md" onPress={postBtnClicked} color="gradient">
-						post
+						<div className="text-xl">post</div>
 					</Button>
 				</Modal.Footer>
 			</Modal>

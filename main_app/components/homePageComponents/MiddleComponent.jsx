@@ -23,8 +23,8 @@ const MiddleComponent = () => {
 			</div>
 			<AnnouncementCard />
 			<CreateAnnouncementPost />
-			<ForumPostComponent />
-			<CreateForumPost />
+			{/* <ForumPostComponent /> */}
+			{/* <CreateForumPost /> */}
 		</div>
 	);
 };
