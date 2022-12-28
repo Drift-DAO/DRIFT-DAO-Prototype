@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const ForumPostComponent = ({ currLeft }) => {
 	return (
-		<div className="flex justify-center justify-items-center my-3">
+		<div className="flex justify-center justify-items-center my-6">
 			<Card variant="bordered" style={{ width: '60vw' }}>
 				<div className="text-xl font-bold my-4 mx-3">This is heading</div>
 				<Card.Divider></Card.Divider>

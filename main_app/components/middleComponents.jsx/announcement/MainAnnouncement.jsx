@@ -1,7 +1,6 @@
 import React from 'react';
 import CreateAnnouncementPost from './CreateAnnouncementPost';
 import AnnouncementCard from './AnnouncementCard';
-
 import SimpleBar from 'simplebar-react';
 
 const MainAnnouncement = () => {
