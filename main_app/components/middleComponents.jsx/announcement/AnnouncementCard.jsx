@@ -3,7 +3,7 @@ import { Card, Grid, Text, Button, Row, Spacer } from '@nextui-org/react';
 
 const AnnouncementCard = () => {
 	return (
-		<div className="flex justify-center">
+		<div className="flex justify-center my-6">
 			<Card css={{ mw: '60vw' }}>
 				<div className="flex justify-between my-3 mx-3">
 					<div className="font-bold text-xl text-red-600">📢 Make the Web</div>
@@ -16,7 +16,13 @@ const AnnouncementCard = () => {
 				<Card.Body css={{ py: '$10    ' }}>
 					<div>
 						Some quick example text to build on the card title and make up the
-						bulk of the card's content.
+						bulk of the card's content. Some quick example text to build Some
+						quick example text to build Some quick example text to build on the
+						card title and make up the bulk of the card's content. Some quick
+						example text to build Some quick example text to build Some quick
+						example text to build on the card title and make up the bulk of the
+						card's content. Some quick example text to build Some quick example
+						text to build
 					</div>
 				</Card.Body>
 			</Card>
