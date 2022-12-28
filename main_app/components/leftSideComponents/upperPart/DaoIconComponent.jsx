@@ -14,7 +14,7 @@ const DaoIconComponent = ({ img, name}) => {
 	return (
 		<div
 			className={`${
-				active ? 'bg-gradient-to-r from-gray-500' : ''
+				active ? 'bg-gradient-to-r from-pink-500' : ''
 			} flex justify-center justify-items-center py-2`}
 		>
 			<motion.div
