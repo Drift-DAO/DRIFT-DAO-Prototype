@@ -32,7 +32,9 @@ const ForumPostComponent = ({ post }) => {
 			return;
 		}
 		if (reaction === 'downvote') {
-			setTotalDislikes(totalDislikes - 1);
+			if (totalDislikes > 0) {
+				setTotalDislikes(totalDislikes - 1);
+			}
 			setTotalLikes(totalLikes + 1);
 		}
 		setReaction('like');
@@ -53,7 +55,9 @@ const ForumPostComponent = ({ post }) => {
 		}
 		if (reaction === 'like') {
 			setTotalDislikes(totalDislikes + 1);
-			setTotalLikes(totalLikes - 1);
+			if (totalLikes > 0) {
+				setTotalLikes(totalLikes - 1);
+			}
 		}
 		setReaction('downvote');
 		let res = await orbis.isConnected();
