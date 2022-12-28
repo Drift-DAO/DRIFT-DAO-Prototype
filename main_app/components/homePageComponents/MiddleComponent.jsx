@@ -1,40 +1,29 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import ChatCardLeft from "../middleComponents.jsx/chatRoom/upperPart/ChatCardLeft";
-import ChatCardRight from '../middleComponents.jsx/chatRoom/upperPart/ChatCardRight';
-import Input_and_Button from '../middleComponents.jsx/chatRoom/lowerPart/Input_and_Button';
-import AnnouncementCard from '../middleComponents.jsx/announcement/AnnouncementCard';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import CreateForumPost from '../middleComponents.jsx/forum/CreateForumPost';
+import ForumPostComponent from '../middleComponents.jsx/forum/ForumPostComponent';
 
 const MiddleComponent = () => {
-  const {leftSide, rightSide} = useSelector((state)=>state.leftRight)
-  return (
-    <div
-      className="bg-pink-900 mx-2 my-2 rounded-2xl"
-      style={{ width: "71vw" }}
-    >
-      <div className="text-center my-4">
-        <div>leftside: {leftSide} </div>
-        <div>rightside: {rightSide} </div>
-      </div>
+	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
+	return (
+		<div
+			className="mx-2 my-2 rounded-2xl"
+			style={{
+				width: '71vw',
+				backgroundColor: '#260033',
+				borderColor: '#4d0066',
+				borderWidth: '2px',
+			}}
+		>
+			<div className="text-center my-4">
+				<div>leftside: {leftSide} </div>
+				<div>rightside: {rightSide} </div>
+			</div>
 
-      {/* <div className="mx-10">
-        <div className="flex justify-start">
-          <ChatCardLeft />
-        </div>
-        <div className="mt-20 flex justify-end">
-          <ChatCardRight />
-        </div>
-      </div>
-      <div>
-        <Input_and_Button/>
-      </div> */}
+			<ForumPostComponent />
+			<CreateForumPost />
+		</div>
+	);
+};
 
-      <div>
-        <AnnouncementCard/>
-      </div>
-
-    </div>
-  );
-}
-
-export default MiddleComponent
+export default MiddleComponent;
