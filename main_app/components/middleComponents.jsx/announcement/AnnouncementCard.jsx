@@ -1,29 +1,20 @@
 import React from 'react';
 import { Card, Grid, Text, Button, Row, Spacer } from '@nextui-org/react';
 
-const AnnouncementCard = () => {
+const AnnouncementCard = ({ title, desc, by }) => {
 	return (
 		<div className="flex justify-center my-6">
 			<Card css={{ mw: '60vw' }}>
 				<div className="flex justify-between my-3 mx-3">
-					<div className="font-bold text-xl text-red-600">📢 Make the Web</div>
+					<div className="font-bold text-xl text-red-600">📢 {title}</div>
 					<div>
 						<span className="font-bold text-pink-700">by:</span>{' '}
-						0x4e76d6B2404d59D01bD50e159A775044d37debdA
+						{by.substring(17)}
 					</div>
 				</div>
 				<Card.Divider />
 				<Card.Body css={{ py: '$10    ' }}>
-					<div>
-						Some quick example text to build on the card title and make up the
-						bulk of the card's content. Some quick example text to build Some
-						quick example text to build Some quick example text to build on the
-						card title and make up the bulk of the card's content. Some quick
-						example text to build Some quick example text to build Some quick
-						example text to build on the card title and make up the bulk of the
-						card's content. Some quick example text to build Some quick example
-						text to build
-					</div>
+					<div>{desc}</div>
 				</Card.Body>
 			</Card>
 		</div>

@@ -11,6 +11,7 @@
   "dependencies": {
     "@next/font": "13.1.1",
     "@nextui-org/react": "^1.0.0-beta.11",
+    "@orbisclub/orbis-sdk": "^0.4.9",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.1",
