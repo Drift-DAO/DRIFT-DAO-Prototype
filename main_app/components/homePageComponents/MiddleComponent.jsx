@@ -6,6 +6,7 @@ import MainAnnouncement from '../middleComponents.jsx/announcement/MainAnnouncem
 import CreateForumPost from '../middleComponents.jsx/forum/CreateForumPost';
 import ForumPostComponent from '../middleComponents.jsx/forum/ForumPostComponent';
 import MainForum from '../middleComponents.jsx/forum/MainForum';
+import MainProposal from '../middleComponents.jsx/proposal/MainProposal';
 
 const MiddleComponent = () => {
 	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
@@ -31,7 +32,11 @@ const MiddleComponent = () => {
 	}
 
 	if (rightSide.substring(0, 8) === 'proposal') {
-		return <div>proposal</div>;
+		return (
+			<div>
+				<MainProposal />
+			</div>
+		);
 	}
 
 	if (rightSide === 'analytics') {
