@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import AnnouncementCard from '../middleComponents.jsx/announcement/AnnouncementCard';
+import CreateAnnouncementPost from '../middleComponents.jsx/announcement/CreateAnnouncementPost';
 import CreateForumPost from '../middleComponents.jsx/forum/CreateForumPost';
 import ForumPostComponent from '../middleComponents.jsx/forum/ForumPostComponent';
 
@@ -19,7 +21,8 @@ const MiddleComponent = () => {
 				<div>leftside: {leftSide} </div>
 				<div>rightside: {rightSide} </div>
 			</div>
-
+			<AnnouncementCard />
+			<CreateAnnouncementPost />
 			<ForumPostComponent />
 			<CreateForumPost />
 		</div>
