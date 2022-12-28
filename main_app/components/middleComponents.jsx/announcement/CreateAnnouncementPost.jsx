@@ -31,9 +31,6 @@ const CreateAnnouncementPost = () => {
 		}
 		setPosting(true);
 
-		// console.log('post btn clicked');
-		// console.log('the heading is: ', heading);
-		// console.log('the description is: ', desc);
 		let res = await orbis.isConnected();
 		if (!res) {
 			await orbis.connect_v2({
@@ -42,10 +39,6 @@ const CreateAnnouncementPost = () => {
 			});
 		}
 
-		// console.log('heading: ', heading);
-		// console.log('description: ', desc);
-		// console.log('context: ', `${leftSide}-${rightSide}`);
-		/** To create a post in the group */
 		let myFirstPost = await orbis.createPost({
 			title: heading,
 			body: desc,

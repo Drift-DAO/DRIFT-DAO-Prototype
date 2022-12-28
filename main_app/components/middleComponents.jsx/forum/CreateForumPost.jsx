@@ -1,8 +1,17 @@
 import React from 'react';
-import { Modal, Input, Row, Button } from '@nextui-org/react';
+import { Orbis } from '@orbisclub/orbis-sdk';
+import { Modal, Input, Row, Button, Loading } from '@nextui-org/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeValue } from '../../../redux/slices/refreshPageSlice';
+import Swal from 'sweetalert2';
 
+let orbis = new Orbis();
 const CreateForumPost = () => {
+	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
+	const myDispatch = useDispatch();
+
 	const [visible, setVisible] = React.useState(false);
+	const [posting, setPosting] = React.useState(false);
 	const [heading, setHeading] = React.useState('');
 	const [desc, setDesc] = React.useState('');
 
@@ -19,13 +28,28 @@ const CreateForumPost = () => {
 			alert('heading or description is empty.');
 			return;
 		}
-		console.log('post btn clicked');
-		console.log('the heading is: ', heading);
-		console.log('the description is: ', desc);
 
+		setPosting(true);
+
+		let res = await orbis.isConnected();
+		if (!res) {
+			await orbis.connect_v2({
+				provider: window.ethereum,
+				lit: false,
+			});
+		}
+
+		let myFirstPost = await orbis.createPost({
+			title: heading,
+			body: desc,
+			context: `${leftSide}-${rightSide}`,
+		});
+		setPosting(false);
+		myDispatch(changeValue());
 		setHeading('');
 		setDesc('');
 		setVisible(false);
+		Swal.fire('Posted!', 'Posted successfully in the forum', 'success');
 	};
 	return (
 		<div className="flex justify-center">
@@ -92,7 +116,14 @@ const CreateForumPost = () => {
 						<div className="text-xl">cancel</div>
 					</Button>
 					<Button size="md" onPress={postBtnClicked} color="gradient">
-						<div className="text-xl">post</div>
+					{posting ? (
+							<div className="text-xl">
+								<span className="mx-2">posting</span>
+								<Loading color="error" type="points-opacity" />
+							</div>
+						) : (
+							<div className="text-xl">post</div>
+						)}
 					</Button>
 				</Modal.Footer>
 			</Modal>

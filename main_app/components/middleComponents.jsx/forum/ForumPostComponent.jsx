@@ -2,31 +2,77 @@ import React, { useEffect, useState } from 'react';
 import { Card } from '@nextui-org/react';
 import axios from 'axios';
 import Image from 'next/image';
+import { Orbis } from '@orbisclub/orbis-sdk';
+import moment from 'moment';
 
-const ForumPostComponent = ({ currLeft }) => {
+let orbis = new Orbis();
+const ForumPostComponent = ({ post }) => {
+	const [reaction, setReaction] = useState('');
+	const [totalLikes, setTotalLikes] = useState(0);
+	const [totalDislikes, setTotalDislikes] = useState(0);
+	const time = JSON.stringify(moment.unix(post.timestamp)._d);
+
+	const fetchReaction = async () => {
+		let { data, error } = await orbis.getReaction(post.stream_id, post.creator);
+		if (data) {
+			setReaction(data.type);
+		} else {
+			setReaction('');
+		}
+	};
+
+	useEffect(() => {
+		fetchReaction();
+		setTotalLikes(post.count_likes);
+		setTotalDislikes(post.count_downvotes);
+	}, []);
+
+	const likeThePost = async () => {
+		if (reaction === 'like') {
+			return;
+		}
+		if (reaction === 'downvote') {
+			setTotalDislikes(totalDislikes - 1);
+			setTotalLikes(totalLikes + 1);
+		}
+		setReaction('like');
+		let res = await orbis.isConnected();
+		if (!res) {
+			await orbis.connect_v2({
+				provider: window.ethereum,
+				lit: false,
+			});
+		}
+
+		let result = await orbis.react(post.stream_id, 'like');
+	};
+
+	const dislikeThePost = async () => {
+		if (reaction === 'downvote') {
+			return;
+		}
+		if (reaction === 'like') {
+			setTotalDislikes(totalDislikes + 1);
+			setTotalLikes(totalLikes - 1);
+		}
+		setReaction('downvote');
+		let res = await orbis.isConnected();
+		if (!res) {
+			await orbis.connect_v2({
+				provider: window.ethereum,
+				lit: false,
+			});
+		}
+		await orbis.react(post.stream_id, 'downvote');
+	};
+
 	return (
 		<div className="flex justify-center justify-items-center my-6">
 			<Card variant="bordered" style={{ width: '60vw' }}>
-				<div className="text-xl font-bold my-4 mx-3">This is heading</div>
+				<div className="text-xl font-bold my-4 mx-3">{post.content.title}</div>
 				<Card.Divider></Card.Divider>
 				<Card.Body>
-					<div>
-						A hoverable card A hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable card. hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable cardA hoverable cardA hoverable cardA
-						hoverable cardA hoverable card.
-					</div>
+					<div>{post.content.body}</div>
 				</Card.Body>
 				<Card.Divider></Card.Divider>
 				<div className="my-3 mx-3">
@@ -34,19 +80,23 @@ const ForumPostComponent = ({ currLeft }) => {
 						<div>
 							<div>
 								<span className="font-bold text-pink-700">Date & time:</span>{' '}
-								07:43pm, 22aug 2022
+								{time.substring(12, 17)}, {time.substring(1, 11)}
 							</div>
 							<div className="justify-end">
 								<span className="font-bold text-pink-700">by:</span>{' '}
-								0x4e76d6B2404d59D01bD50e159A775044d37debdA
+								{post.creator.substring(17)}
 							</div>
 						</div>
 						<div className="flex my-1">
 							<div className="mx-2 flex">
-								<div className="mx-1 my-1">10</div>
-								<button className="">
+								<div className="mx-1 my-1">{totalLikes}</div>
+								<button className="" onClick={likeThePost}>
 									<Image
-										src="/forum_icons/support.png"
+										src={`${
+											reaction === 'like'
+												? '/forum_icons/supported.png'
+												: '/forum_icons/support.png'
+										}`}
 										height={35}
 										width={35}
 										alt="support"
@@ -55,10 +105,14 @@ const ForumPostComponent = ({ currLeft }) => {
 							</div>
 
 							<div className="flex mx-2">
-								<div className="mx-1 my-1">3</div>
-								<button className="">
+								<div className="mx-1 my-1">{totalDislikes}</div>
+								<button className="" onClick={dislikeThePost}>
 									<Image
-										src="/forum_icons/dislike.png"
+										src={`${
+											reaction === 'downvote'
+												? '/forum_icons/disliked.png'
+												: '/forum_icons/dislike.png'
+										}`}
 										height={35}
 										width={35}
 										alt="dislike"

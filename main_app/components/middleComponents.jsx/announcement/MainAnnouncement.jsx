@@ -12,19 +12,19 @@ const MainAnnouncement = () => {
   const { value } = useSelector((state) => state.refreshPage);
 
   const [allAnnouncements, setAllAnnouncements] = useState([]);
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, [value, leftSide]);
 
   const fetchData = async () => {
-    setloading(true);
+    setLoading(true);
     let res = await orbis.isConnected();
     if (!res) {
       await orbis.connect_v2({
         provider: window.ethereum,
-        lit: true,
+        lit: false,
       });
     }
 
@@ -33,8 +33,9 @@ const MainAnnouncement = () => {
     });
 
     setAllAnnouncements(data);
-    setloading(false);
+    setLoading(false);
   };
+
   return (
     <div>
       <div style={{ height: "80vh" }} className="py-2 overflow-hidden">
