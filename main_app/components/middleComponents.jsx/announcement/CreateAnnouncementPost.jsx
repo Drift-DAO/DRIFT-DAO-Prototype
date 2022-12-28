@@ -3,6 +3,8 @@ import { Orbis } from '@orbisclub/orbis-sdk';
 import { Modal, Input, Row, Button, Loading } from '@nextui-org/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeValue } from '../../../redux/slices/refreshPageSlice';
+import Swal from "sweetalert2";
+
 
 let orbis = new Orbis();
 const CreateAnnouncementPost = () => {
@@ -54,6 +56,7 @@ const CreateAnnouncementPost = () => {
 		setHeading('');
 		setDesc('');
 		setVisible(false);
+		Swal.fire("Posted!", "Announcement Posted Successfully", "success");
 	};
 	return (
 		<div className="flex justify-center">

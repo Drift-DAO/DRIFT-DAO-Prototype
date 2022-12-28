@@ -20,8 +20,10 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading": "^2.0.3",
     "react-redux": "^8.0.5",
     "simplebar-react": "^2.4.3",
+    "sweetalert2": "^11.6.16",
     "wagmi": "^0.9.5"
   },
   "devDependencies": {
