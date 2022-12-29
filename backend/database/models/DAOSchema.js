@@ -24,5 +24,17 @@ const DAOSchema = mongoose.Schema({
 	},
 });
 
+const DAOmemberSchema = mongoose.Schema({
+	userAddr:{
+		type:String,
+		required:true
+	},
+	daoId:{
+		type:String,
+		required:true
+	}
+})
+
 const DAOModel = mongoose.model('DAOModel', DAOSchema);
-export { DAOModel };
+const DAOmemberModel = mongoose.model('DAOmemberModel', DAOmemberSchema);
+export { DAOModel, DAOmemberModel };
