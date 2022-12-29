@@ -54,6 +54,7 @@ VotingRouter.get('/:userAddr/:electionId', async (req, res) => {
 });
 
 VotingRouter.post('/vote', async (req, res) => {
+	console.log('hello world');
 	try {
 		const { userAddr, electionId, option } = req.body;
 		const newVote = new UserVotedModel({

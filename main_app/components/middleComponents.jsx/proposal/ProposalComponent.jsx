@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@nextui-org/react';
 import { Button, Progress } from '@nextui-org/react';
-import { axios } from 'axios';
+import axios from 'axios';
 import { ethers } from 'ethers';
 import swal from 'sweetalert2';
-
+import { useDispatch } from 'react-redux';
+import { changeValue } from '../../../redux/slices/refreshPageSlice';
 import {
 	Election,
 	EnvOptions,
@@ -15,6 +16,21 @@ import {
 } from '@vocdoni/sdk';
 
 const ProposalComponent = ({ prp }) => {
+	const [userHasVoted, setUserHasVoted] = useState(-1);
+	const myDispatch = useDispatch();
+
+	useEffect(() => {
+		axios
+			.get(`http://127.0.0.1:4000/voting/deependu/${prp._id}`)
+			.then((res) => {
+				setUserHasVoted(res.data.option);
+			})
+			.catch((e) => {
+				console.log('error occurred', e);
+			});
+	}, []);
+
+	const isProposalOver = prp._finalResults;
 	const voteOnProposal = async (i) => {
 		try {
 			let provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -30,44 +46,76 @@ const ProposalComponent = ({ prp }) => {
 			const vote = new Vote([i]);
 			const voteId = await client.submitVote(vote);
 			axios
-				.post(`http://127.0.0.1:4000/voting/deependu/${prp._id}`)
+				.post(`http://127.0.0.1:4000/voting/vote`, {
+					userAddr: 'deependu',
+					electionId: prp._id,
+					option: i,
+				})
 				.then((res) => {
+					myDispatch(changeValue());
 					swal.fire('Voted🥳', 'Voted successfully in the proposal', 'success');
 				})
 				.catch((e) => {
+					myDispatch(changeValue());
+					console.log('error is: ', e);
 					swal.fire('Error😵‍💫', 'An unexpected error occurred', 'error');
 				});
 		} catch (err) {
+			console.log('error is: ', err);
 			swal.fire('Error😵‍💫', 'An unexpected error occurred', 'error');
 		}
 	};
 
 	return (
-		<div className="flex justify-center justify-items-center my-4">
+		<div className="flex justify-center justify-items-center my-6">
 			<Card variant="bordered" style={{ width: '60vw' }}>
 				<Card.Body>
 					<div className="pb-3">
-						<div className="text-xl text-red-600">
-							{`> ${prp._questions[0].title.default}`}
+						<div className="text-2xl px-8 font-bold text-red-600">
+							{prp._questions[0].title.default}
 						</div>
-						<div className="text-md text-orange-400">
+						<div className="text-md px-8">
 							{prp._questions[0].description.default}
 						</div>
 					</div>
 					<hr className="py-3" />
 					{[...Array(prp._questions[0].choices.length)].map((e, i) => (
 						<div className="my-1 flex justify-center" key={i}>
-							<Button
-								style={{ width: '50vw' }}
-								onPress={() => {
-									voteOnProposal(i);
-								}}
-								color="secondary"
-							>
-								{prp._questions[0].choices[i].title.default}
-							</Button>
+							{isProposalOver ? (
+								<Progress
+									color="success"
+									value={54}
+									style={{ height: '30px', width: '45vw' }}
+								/>
+							) : (
+								<div>
+									{' '}
+									<Button
+										disabled={isProposalOver}
+										style={{ width: '45vw' }}
+										onPress={() => {
+											if (userHasVoted === -1) {
+												voteOnProposal(i);
+											}
+										}}
+										bordered={userHasVoted !== i}
+										color={`${userHasVoted === i ? 'success' : 'gradient'}`}
+									>
+										{prp._questions[0].choices[i].title.default}
+									</Button>
+								</div>
+							)}
 						</div>
 					))}
+					<div className="py-2">
+						{isProposalOver ? (
+							<div className="text-center text-black font-bold">
+								Proposal is over
+							</div>
+						) : (
+							<div></div>
+						)}
+					</div>
 				</Card.Body>
 				{/* <Progress
 					value={90}
