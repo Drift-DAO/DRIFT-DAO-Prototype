@@ -3,7 +3,17 @@ import { Modal, Input, Row, Button, Loading } from '@nextui-org/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeValue } from '../../../redux/slices/refreshPageSlice';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import Image from 'next/image';
+import { ethers } from 'ethers';
+import {
+	Election,
+	EnvOptions,
+	PlainCensus,
+	PublishedElection,
+	VocdoniSDKClient,
+	Vote,
+} from '@vocdoni/sdk';
 
 const CreateProposal = () => {
 	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
@@ -79,13 +89,70 @@ const CreateProposal = () => {
 				console.log(`option ${i + 1}: `, optionChoices[i]);
 			}
 
-			setHeading('');
-			setDesc('');
-			setCurrState('set options');
-			setOptions(2);
-			setOptionChoices([]);
-			setVisible(false);
-			Swal.fire('Posted!', 'Posted successfully in the forum', 'success');
+			let provider = new ethers.providers.Web3Provider(window.ethereum);
+			await provider.send('eth_requestAccounts', []);
+			let signer = provider.getSigner();
+
+			const client = new VocdoniSDKClient({
+				env: EnvOptions.STG, // mandatory, can be 'dev' or 'prod'
+				wallet: signer, // optional, the signer used (Metamask, Walletconnect)
+			});
+			const info = await client.createAccount();
+			if (info.balance === 0) {
+				await client.collectFaucetTokens();
+			}
+
+			const census = new PlainCensus();
+			census.add('0x4e76d6B2404d59D01bD50e159A775044d37debdA');
+			census.add('0x31B0F3eeD8cAFA7D09C862b7779AAc826F3c4468');
+
+			const endDate = new Date();
+			endDate.setMinutes(endDate.getMinutes() + 5);
+
+			const election = Election.from({
+				title: 'Election title',
+				description: 'Election description',
+				header: 'https://source.unsplash.com/random',
+				streamUri: 'https://source.unsplash.com/random',
+				endDate: endDate.getTime(),
+				census,
+			});
+
+			let myOptions = [];
+			for (let i = 0; i < optionChoices.length; i++) {
+				let a = { value: i };
+				a.title = optionChoices[i];
+				myOptions.push(a);
+			}
+
+			// add questions
+			election.addQuestion(heading, desc, myOptions);
+			const electionId = await client.createElection(election);
+			axios
+				.post('http://127.0.0.1:4000/voting', {
+					dao_id: '63ad191d039b088a4d250f10',
+					electionId,
+				})
+				.then((res) => {
+					setHeading('');
+					setDesc('');
+					setCurrState('set options');
+					setOptions(2);
+					setOptionChoices([]);
+					setVisible(false);
+					Swal.fire('Posted!', 'Proposal posted successfully.', 'success');
+				})
+				.catch((err) => {
+					setHeading('');
+					setDesc('');
+					setCurrState('set options');
+					setOptions(2);
+					setOptionChoices([]);
+					setVisible(false);
+					Swal.fire('Erro!', 'An unexpected error occurred', 'error');
+				});
+
+			// Swal.fire('Posted!', 'Posted successfully in the forum', 'success');
 		}
 
 		// setPosting(true);

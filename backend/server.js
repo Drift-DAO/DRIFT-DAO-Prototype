@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import ContactFormRouter from './router/ContactFormRouter.js';
 import DAORouter from './router/DAORouter.js';
-import VotingRouter from './router/ElectionRouter.js';
+import VotingRouter from './router/VotingRouter.js';
 
 const PORT = process.env.PORT || 4000;
 const app = express();
