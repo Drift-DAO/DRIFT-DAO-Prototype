@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import MainAnalytics from '../middleComponents.jsx/Analytics/MainAnalytics';
 import AnnouncementCard from '../middleComponents.jsx/announcement/AnnouncementCard';
 import CreateAnnouncementPost from '../middleComponents.jsx/announcement/CreateAnnouncementPost';
 import MainAnnouncement from '../middleComponents.jsx/announcement/MainAnnouncement';
@@ -40,7 +41,11 @@ const MiddleComponent = () => {
 	}
 
 	if (rightSide === 'analytics') {
-		return <div>analytics</div>;
+		return (
+			<div>
+				<MainAnalytics />
+			</div>
+		);
 	}
 };
 
