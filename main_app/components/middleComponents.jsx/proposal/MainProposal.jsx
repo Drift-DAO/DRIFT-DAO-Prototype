@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import SimpleBar from 'simplebar-react';
 import ReactLoading from 'react-loading';
 import CreateProposal from './CreateProposal';
+import ProposalComponent from './ProposalComponent';
+import { useSelector } from 'react-redux';
 
 const MainProposal = () => {
-	const loading = false;
+	const leftSide = useSelector((state) => state.leftRight.leftSide);
+	const value = useSelector((state) => state.refreshPage.value);
+	const [allProposals, setAllProposals] = useState([]);
+	
+	useEffect(() => {}, [leftSide, value]);
+
+	const fetchAllProposals = async () => {};
 	return (
 		<div>
 			<div style={{ height: '80vh' }} className="py-2 overflow-hidden">
@@ -19,7 +27,9 @@ const MainProposal = () => {
 						/>
 					</div>
 				) : (
-					<SimpleBar style={{ maxHeight: '80vh' }}>all my proposals </SimpleBar>
+					<SimpleBar style={{ maxHeight: '80vh' }}>
+						<ProposalComponent />
+					</SimpleBar>
 				)}
 			</div>
 			<div>

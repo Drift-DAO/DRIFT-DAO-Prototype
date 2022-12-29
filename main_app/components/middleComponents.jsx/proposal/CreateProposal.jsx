@@ -252,7 +252,7 @@ const CreateProposal = () => {
 						</div>
 					) : (
 						<div>
-							{[...Array(options)].map((e, i) => (
+						{[...Array(options)].map((e, i) => (
 								<div className="text-center mb-3" key={i}>
 									<input
 										placeholder={`option ${i + 1}`}
