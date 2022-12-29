@@ -81,35 +81,38 @@ const ProposalComponent = ({ prp }) => {
 					<hr className="py-3" />
 					{[...Array(prp._questions[0].choices.length)].map((e, i) => (
 						<div className="my-1 flex justify-center" key={i}>
-							{isProposalOver ? (
-								<Progress
-									color="success"
-									value={54}
-									style={{ height: '30px', width: '45vw' }}
-								/>
-							) : (
-								<div>
-									{' '}
-									<Button
-										disabled={isProposalOver}
-										style={{ width: '45vw' }}
-										onPress={() => {
-											if (userHasVoted === -1) {
-												voteOnProposal(i);
-											}
-										}}
-										bordered={userHasVoted !== i}
-										color={`${userHasVoted === i ? 'success' : 'gradient'}`}
-									>
+							<div>
+								<Button
+									disabled={isProposalOver}
+									style={{ width: '45vw' }}
+									onPress={() => {
+										if (userHasVoted === -1) {
+											voteOnProposal(i);
+										}
+									}}
+									bordered={userHasVoted !== i}
+									color={`${userHasVoted === i ? 'success' : 'gradient'}`}
+								>
+									<div className="font-bold text-black">
 										{prp._questions[0].choices[i].title.default}
-									</Button>
-								</div>
-							)}
+										{isProposalOver ? (
+											<span className="text-gray-600 pl-3 pr-2 ">
+													Votes:{' '}
+												<span className="font-bold text-blue-600">
+													{prp._results[0][i]}
+												</span>
+											</span>
+										) : (
+											<span></span>
+										)}
+									</div>
+								</Button>
+							</div>
 						</div>
 					))}
 					<div className="py-2">
 						{isProposalOver ? (
-							<div className="text-center text-black font-bold">
+							<div className="text-center text-pink-500 font-bold">
 								Proposal is over
 							</div>
 						) : (
