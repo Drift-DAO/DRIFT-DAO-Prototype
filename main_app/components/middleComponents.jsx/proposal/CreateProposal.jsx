@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Input, Row, Button, Loading } from '@nextui-org/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeValue } from '../../../redux/slices/refreshPageSlice';
@@ -88,7 +88,7 @@ const CreateProposal = () => {
 			for (let i = 0; i < options; i++) {
 				console.log(`option ${i + 1}: `, optionChoices[i]);
 			}
-
+			setPosting(true);
 			let provider = new ethers.providers.Web3Provider(window.ethereum);
 			await provider.send('eth_requestAccounts', []);
 			let signer = provider.getSigner();
@@ -139,7 +139,9 @@ const CreateProposal = () => {
 					setCurrState('set options');
 					setOptions(2);
 					setOptionChoices([]);
+					setPosting(false);
 					setVisible(false);
+
 					Swal.fire('Posted!', 'Proposal posted successfully.', 'success');
 				})
 				.catch((err) => {
@@ -148,6 +150,7 @@ const CreateProposal = () => {
 					setCurrState('set options');
 					setOptions(2);
 					setOptionChoices([]);
+					setPosting(false);
 					setVisible(false);
 					Swal.fire('Erro!', 'An unexpected error occurred', 'error');
 				});
