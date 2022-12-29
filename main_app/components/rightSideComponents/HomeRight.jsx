@@ -27,6 +27,9 @@ const HomeRight = () => {
 	};
 
 	const joinDAO = async () => {
+		if (DAOData.isMember) {
+			return;
+		}
 		axios
 			.post(`http://127.0.0.1:4000/DAO/join`, {
 				userAddr: 'nitesh',
@@ -44,7 +47,7 @@ const HomeRight = () => {
 
 	const searchDAO = async () => {
 		axios
-			.get(`http://127.0.0.1:4000/DAO/name/${DAOName}`)
+			.get(`http://127.0.0.1:4000/DAO?name=${DAOName}&userAddr=nitesh`)
 			.then((res) => {
 				if (res.data === 'no dao found') {
 					setVisibleError(true);
@@ -149,8 +152,13 @@ const HomeRight = () => {
 							</Button>
 						</span>
 						<span>
-							<Button auto shadow color="success" onClick={joinDAO}>
-								Join
+							<Button
+								auto
+								shadow
+								color={`${DAOData.isMember ? 'secondary' : 'success'}`}
+								onClick={joinDAO}
+							>
+								{DAOData.isMember ? <div>Already joined</div> : <div>Join</div>}
 							</Button>
 						</span>
 					</div>

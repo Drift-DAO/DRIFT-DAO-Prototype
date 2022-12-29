@@ -15,6 +15,37 @@ DAORouter.get('/:id', async (req, res) => {
 	}
 });
 
+DAORouter.get('/', async (req, res) => {
+	try {
+		const dao_name = req.query.name;
+		const userAddr = req.query.userAddr;
+		// console.log('dao name:', dao_name);
+		// console.log('useraddr: ', userAddr);
+		const result = await DAOModel.findOne({ dao_name });
+		if (!result) {
+			res.send('no dao found');
+			return;
+		}
+		// console.log('result-1 is: ', result);
+
+		let newResult = {
+			...result._doc,
+			isMember: false,
+		};
+		const ifAlreadyMember = await DAOmemberModel.findOne({
+			userAddr,
+			daoId: result._id,
+		});
+		if (ifAlreadyMember) {
+			newResult.isMember = true;
+		}
+		res.send(newResult);
+	} catch (e) {
+		console.log('error occurred: ', e);
+		res.send(e);
+	}
+});
+
 DAORouter.get('/memberOf/:userAddr', async (req, res) => {
 	try {
 		const userAddr = req.params.userAddr;
