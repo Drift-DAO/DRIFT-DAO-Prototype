@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from '@nextui-org/react';
 import { Button, Progress } from '@nextui-org/react';
 
-const ProposalComponent = () => {
+const ProposalComponent = ({prp}) => {
 	const voteOnProposal = async (i) => {
         
     };
@@ -13,17 +13,14 @@ const ProposalComponent = () => {
 				<Card.Body>
 					<div className="pb-3">
 						<div className="text-xl text-red-600">
-							{`> Ye melodi itni chocolaty kyu hai?`}
+							{`> ${prp._questions[0].title.default}`}
 						</div>
 						<div className="text-md text-orange-400">
-							Welcome to the NextUI documentation! NextUI allows you to make
-							beautiful, modern, and fast websites/applications regardless of
-							your design experience, created with React.js and Stitches, based
-							on React Aria and inspired by Vuesax.
+							{prp._questions[0].description.default}
 						</div>
 					</div>
 					<hr className="py-3" />
-					{[...Array(3)].map((e, i) => (
+					{[...Array(prp._questions[0].choices.length)].map((e, i) => (
 						<div className="my-1 flex justify-center" key={i}>
 							<Button
 								style={{ width: '50vw' }}
@@ -31,7 +28,7 @@ const ProposalComponent = () => {
 									voteOnProposal(i);
 								}}
 								color="secondary"
-							>{`option: ${i + 1}`}</Button>
+							>{prp._questions[0].choices[i].title.default}</Button>
 						</div>
 					))}
 				</Card.Body>

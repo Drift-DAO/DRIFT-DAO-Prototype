@@ -139,9 +139,9 @@ const CreateProposal = () => {
 					setCurrState('set options');
 					setOptions(2);
 					setOptionChoices([]);
+					myDispatch(changeValue());
 					setPosting(false);
 					setVisible(false);
-
 					Swal.fire('Posted!', 'Proposal posted successfully.', 'success');
 				})
 				.catch((err) => {
@@ -150,6 +150,7 @@ const CreateProposal = () => {
 					setCurrState('set options');
 					setOptions(2);
 					setOptionChoices([]);
+					myDispatch(changeValue());
 					setPosting(false);
 					setVisible(false);
 					Swal.fire('Erro!', 'An unexpected error occurred', 'error');
@@ -252,7 +253,7 @@ const CreateProposal = () => {
 						</div>
 					) : (
 						<div>
-						{[...Array(options)].map((e, i) => (
+							{[...Array(options)].map((e, i) => (
 								<div className="text-center mb-3" key={i}>
 									<input
 										placeholder={`option ${i + 1}`}
