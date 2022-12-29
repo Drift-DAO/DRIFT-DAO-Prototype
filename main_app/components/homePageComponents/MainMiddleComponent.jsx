@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SimpleBar from 'simplebar-react';
+import { HomeMiddle } from '../middleComponents.jsx/HomeMiddle';
 import MiddleComponent from './MiddleComponent';
 
 export const MainMiddleComponent = () => {
@@ -16,30 +17,39 @@ export const MainMiddleComponent = () => {
 				borderWidth: '2px',
 			}}
 		>
-			<div className="flex justify-between" style={{ height: '8vh' }}>
-				<div
-					className="font-bold text-xl text-pink-500 font-mono"
-					style={{ margin: '2.5vh' }}
-				>
-					{leftSide.toUpperCase()}
+			{leftSide === 'home' ? (
+				<div>
+					<HomeMiddle />
 				</div>
-				<div
-					className="font-bold text-xl text-pink-500 font-mono"
-					style={{ margin: '2.5vh' }}
-				>
-					{rightSide.toUpperCase()}
+			) : (
+				<div>
+					{' '}
+					<div className="flex justify-between" style={{ height: '8vh' }}>
+						<div
+							className="font-bold text-xl text-pink-500 font-mono"
+							style={{ margin: '2.5vh' }}
+						>
+							{leftSide.toUpperCase()}
+						</div>
+						<div
+							className="font-bold text-xl text-pink-500 font-mono"
+							style={{ margin: '2.5vh' }}
+						>
+							{rightSide.toUpperCase()}
+						</div>
+						<div
+							className="font-bold text-xl text-pink-500 font-mono"
+							style={{ margin: '2.5vh' }}
+						>
+							Drift-DAO
+						</div>
+					</div>
+					<hr />
+					<div>
+						<MiddleComponent />
+					</div>
 				</div>
-				<div
-					className="font-bold text-xl text-pink-500 font-mono"
-					style={{ margin: '2.5vh' }}
-				>
-					Drift-DAO
-				</div>
-			</div>
-			<hr />
-			<div>
-				<MiddleComponent />
-			</div>
+			)}
 		</div>
 	);
 };
