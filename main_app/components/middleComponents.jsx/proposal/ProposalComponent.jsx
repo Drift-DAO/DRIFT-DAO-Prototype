@@ -1,11 +1,46 @@
 import React from 'react';
 import { Card } from '@nextui-org/react';
 import { Button, Progress } from '@nextui-org/react';
+import { axios } from 'axios';
+import { ethers } from 'ethers';
+import swal from 'sweetalert2';
 
-const ProposalComponent = ({prp}) => {
+import {
+	Election,
+	EnvOptions,
+	PlainCensus,
+	PublishedElection,
+	VocdoniSDKClient,
+	Vote,
+} from '@vocdoni/sdk';
+
+const ProposalComponent = ({ prp }) => {
 	const voteOnProposal = async (i) => {
-        
-    };
+		try {
+			let provider = new ethers.providers.Web3Provider(window.ethereum);
+			await provider.send('eth_requestAccounts', []);
+			let signer = provider.getSigner();
+			const client = new VocdoniSDKClient({
+				env: EnvOptions.STG, // mandatory, can be 'dev' or 'prod'
+				wallet: signer, // optional, the signer used (Metamask, Walletconnect)
+			});
+			await client.createAccount();
+
+			await client.setElectionId(prp._id);
+			const vote = new Vote([i]);
+			const voteId = await client.submitVote(vote);
+			axios
+				.post(`http://127.0.0.1:4000/voting/deependu/${prp._id}`)
+				.then((res) => {
+					swal.fire('Voted🥳', 'Voted successfully in the proposal', 'success');
+				})
+				.catch((e) => {
+					swal.fire('Error😵‍💫', 'An unexpected error occurred', 'error');
+				});
+		} catch (err) {
+			swal.fire('Error😵‍💫', 'An unexpected error occurred', 'error');
+		}
+	};
 
 	return (
 		<div className="flex justify-center justify-items-center my-4">
@@ -28,7 +63,9 @@ const ProposalComponent = ({prp}) => {
 									voteOnProposal(i);
 								}}
 								color="secondary"
-							>{prp._questions[0].choices[i].title.default}</Button>
+							>
+								{prp._questions[0].choices[i].title.default}
+							</Button>
 						</div>
 					))}
 				</Card.Body>
