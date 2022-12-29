@@ -1,5 +1,9 @@
 import express from 'express';
-import { VotingModel } from '../database/models/VotingSchema.js';
+import {
+	VotingModel,
+	UserVotedModel,
+} from '../database/models/VotingSchema.js';
+
 const VotingRouter = new express.Router();
 
 VotingRouter.get('/:dao_id', async (req, res) => {
@@ -21,6 +25,44 @@ VotingRouter.post('/', async (req, res) => {
 		});
 
 		await newElection.save();
+		res.send('success');
+	} catch (e) {
+		res.send(e);
+	}
+});
+
+VotingRouter.get('/:userAddr/:electionId', async (req, res) => {
+	try {
+		const { userAddr, electionId } = req.params;
+
+		let result = {
+			option: -1,
+		};
+		const userVoted = await UserVotedModel.findOne({
+			userAddr,
+			electionId,
+		});
+
+		if (userVoted) {
+			result.option = userVoted.option;
+		}
+		// if (newVote) await newVote.save();
+		res.send(result);
+	} catch (e) {
+		res.send(e);
+	}
+});
+
+VotingRouter.post('/vote', async (req, res) => {
+	try {
+		const { userAddr, electionId, option } = req.body;
+		const newVote = new UserVotedModel({
+			userAddr,
+			electionId,
+			option,
+		});
+
+		await newVote.save();
 		res.send('success');
 	} catch (e) {
 		res.send(e);
