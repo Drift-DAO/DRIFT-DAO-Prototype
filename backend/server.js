@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import ContactFormRouter from './router/ContactFormRouter.js';
 import DAORouter from './router/DAORouter.js';
+import VotingRouter from './router/ElectionRouter.js';
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 
 app.use('/contactForm', ContactFormRouter);
 app.use('/DAO', DAORouter);
+app.use('/voting', VotingRouter);
 
 app.listen(PORT, () => {
 	console.log(`App started on http://localhost:${PORT}`);

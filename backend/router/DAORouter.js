@@ -55,7 +55,7 @@ DAORouter.get('/memberOf/:userAddr', async (req, res) => {
 			try {
 				const daoDetails = await DAOModel.findOne({ _id: daoList[i].daoId });
 				result.push(daoDetails);
-			} catch (e) {}
+			} catch (e) {}c5d2460186f74e76d6b2404d59d01bd50e159a775044d37debda020000000000
 		}
 		res.send(result);
 	} catch (e) {
