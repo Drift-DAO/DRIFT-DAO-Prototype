@@ -4,6 +4,7 @@ import MainAnalytics from '../middleComponents.jsx/Analytics/MainAnalytics';
 import AnnouncementCard from '../middleComponents.jsx/announcement/AnnouncementCard';
 import CreateAnnouncementPost from '../middleComponents.jsx/announcement/CreateAnnouncementPost';
 import MainAnnouncement from '../middleComponents.jsx/announcement/MainAnnouncement';
+import MainChatRoom from '../middleComponents.jsx/chatRoom/MainChatRoom';
 import CreateForumPost from '../middleComponents.jsx/forum/CreateForumPost';
 import ForumPostComponent from '../middleComponents.jsx/forum/ForumPostComponent';
 import MainForum from '../middleComponents.jsx/forum/MainForum';
@@ -21,7 +22,11 @@ const MiddleComponent = () => {
 	}
 
 	if (rightSide.substring(0, 4) === 'chat') {
-		return <div>chat</div>;
+		return (
+			<div>
+				<MainChatRoom />
+			</div>
+		);
 	}
 
 	if (rightSide.substring(0, 5) === 'forum') {

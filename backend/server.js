@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 
 	socket.on('send_message', async (data) => {
 		socket.to(data.room).emit('receive_message', data);
-		console.log('got the data: ', data);
+		// console.log('got the data: ', data);
 		try {
 			const newData = new Msgs({
 				room: data.room,
@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
 				sender: data.sender,
 			});
 			const result = await newData.save();
-			console.log(`Result: ${result}`);
+			// console.log(`Result: ${result}`);
 		} catch (err) {
 			console.log(`error: ${err}`);
 		}
@@ -52,16 +52,15 @@ app.get('/', (req, res) => {
 	res.send('hello world');
 });
 
+app.use('/contactForm', ContactFormRouter);
+app.use('/DAO', DAORouter);
+app.use('/voting', VotingRouter);
+
 app.get('/:room', async (req, res) => {
 	const myroom = req.params.room;
 	const msgs = await Msgs.find({ room: myroom });
 	res.send(msgs);
 });
-
-app.use('/contactForm', ContactFormRouter);
-app.use('/DAO', DAORouter);
-app.use('/voting', VotingRouter);
-
 httpServer.listen(PORT, () => {
 	console.log(`App started on http://localhost:${PORT}`);
 });

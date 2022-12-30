@@ -59,6 +59,7 @@ const HomeRight = () => {
 				if (res.data === 'no dao found') {
 					setVisibleError(true);
 				} else {
+					console.log("result is: ", res.data)
 					setDAOData(res.data);
 					setVisibleDAO(true);
 					console.log('data fetched is:', res.data);

@@ -66,7 +66,7 @@ const Home = () => {
 			]);
 			const score = await scorer.getScore(userAddress);
 			console.log('score is: ', score);
-			if (score >= 2) {
+			if (score >= 0) {
 				let res = await orbis.isConnected();
 				if (!res) {
 					await orbis.connect_v2({
