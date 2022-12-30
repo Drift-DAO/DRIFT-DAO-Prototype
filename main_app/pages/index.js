@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAccount } from 'wagmi';
+// import { useAccount } from 'wagmi';
 import LeftSide from '../components/homePageComponents/LeftSide';
 import RightSide from '../components/homePageComponents/RightSide';
 import { MainMiddleComponent } from '../components/homePageComponents/MainMiddleComponent';
+import { useSelector } from 'react-redux';
 
 const index = () => {
+	const myAddr = useSelector((state)=>state.addr.myAddress)
 	const myrouter = useRouter();
-	const { address } = useAccount();
+	// const { address } = useAccount();
 
 	useEffect(() => {
-		if (!address) {
-			// myrouter.replace('/login');
+		if (myAddr==="") {
+			myrouter.replace('/login');
 		}
-	}, [address]);
+	}, [myAddr]);
 
 	return (
 		<div className='bg-black min-h-screen text-white flex justify-between'>

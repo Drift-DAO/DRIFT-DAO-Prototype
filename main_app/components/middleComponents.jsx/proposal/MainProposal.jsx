@@ -42,7 +42,7 @@ const MainProposal = () => {
 				await client.createAccount();
 
 				let myProposalArray = [];
-				for (let i = 0; i < res.data.length; i++) {
+				for (let i = res.data.length - 1; i >= 0; i--) {
 					// console.log('election id: ', res.data[i].electionId);
 					const myElection = await client.fetchElection(res.data[i].electionId);
 					myProposalArray.push(myElection);
