@@ -7,6 +7,7 @@ import { Modal, Text, Input } from '@nextui-org/react';
 import { Orbis } from '@orbisclub/orbis-sdk';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeAddr } from '../../redux/slices/addrSlice';
+import Swal from 'sweetalert2';
 import {
 	Election,
 	EnvOptions,
@@ -29,60 +30,65 @@ const Home = () => {
 	};
 	const connectWithWallet = async () => {
 		setLoading(true);
-		let provider = new ethers.providers.Web3Provider(window.ethereum);
-		await provider.send('eth_requestAccounts', []);
-		let signer = provider.getSigner();
-		const userAddress = await signer.getAddress();
+		try {
+			let provider = new ethers.providers.Web3Provider(window.ethereum);
+			await provider.send('eth_requestAccounts', []);
+			let signer = provider.getSigner();
+			const userAddress = await signer.getAddress();
 
-		// gitcoin passport score
-		const scorer = new PassportScorer([
-			{
-				provider: 'Google',
-				issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
-				score: 1,
-			},
-			{
-				provider: 'Github',
-				issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
-				score: 1,
-			},
-			{
-				provider: 'Discord',
-				issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
-				score: 1,
-			},
-			{
-				provider: 'Twitter',
-				issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
-				score: 1,
-			},
-			{
-				provider: 'Lens',
-				issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
-				score: 1,
-			},
-		]);
-		const score = await scorer.getScore(userAddress);
-		console.log('score is: ', score);
-		if (score >= 2) {
-			let res = await orbis.isConnected();
-			if (!res) {
-				await orbis.connect_v2({
-					provider: window.ethereum,
-					lit: false,
+			// gitcoin passport score
+			const scorer = new PassportScorer([
+				{
+					provider: 'Google',
+					issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
+					score: 1,
+				},
+				{
+					provider: 'Github',
+					issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
+					score: 1,
+				},
+				{
+					provider: 'Discord',
+					issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
+					score: 1,
+				},
+				{
+					provider: 'Twitter',
+					issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
+					score: 1,
+				},
+				{
+					provider: 'Lens',
+					issuer: 'did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC',
+					score: 1,
+				},
+			]);
+			const score = await scorer.getScore(userAddress);
+			console.log('score is: ', score);
+			if (score >= 2) {
+				let res = await orbis.isConnected();
+				if (!res) {
+					await orbis.connect_v2({
+						provider: window.ethereum,
+						lit: false,
+					});
+				}
+				const client = new VocdoniSDKClient({
+					env: EnvOptions.STG, // mandatory, can be 'dev' or 'prod'
+					wallet: signer, // optional, the signer used (Metamask, Walletconnect)
 				});
+				const info = await client.createAccount();
+				if (info.balance === 0) {
+					await client.collectFaucetTokens();
+				}
+				myDispatch(changeAddr(userAddress));
+			} else {
+				setVisible(true);
 			}
-			const client = new VocdoniSDKClient({
-				env: EnvOptions.STG, // mandatory, can be 'dev' or 'prod'
-				wallet: signer, // optional, the signer used (Metamask, Walletconnect)
-			});
-			const info = await client.createAccount();
-			if (info.balance === 0) {
-				await client.collectFaucetTokens();
-			}
-			myDispatch(changeAddr(userAddress));
-		} else {
-			setVisible(true);
+		} catch (err) {
+			console.log('an error occurred: ', err);
+			Swal('Error', 'an unexpected error occurred', 'error');
 		}
 		setLoading(false);
 	};

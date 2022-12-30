@@ -66,16 +66,41 @@ const DAO_detail = () => {
 						</div>
 					) : (
 						<div>
-							<div>
-								<Avatar src={DAOData.dao_logo} css={{ size: '$20' }} />
-							</div>
-							<div>DAO name: {DAOData.dao_name.toUpperCase()}</div>
-							<div>
-								DAO short description: {DAOData.dao_short_desc.toUpperCase()}
-							</div>
-							<div>DAO short description: {DAOData.dao_desc}</div>
-							<div>DAO chain: {DAOData.dao_chain}</div>
-							<div>Group's creator address: {DAOData.dao_creator_address}</div>
+							{Object.keys(DAOData).length !== 0 ? (
+								<div>
+									<div className="flex justify-center mb-3">
+										<Avatar src={DAOData.dao_logo} css={{ size: '$20' }} />
+									</div>
+									<div className="font-bold text-black">
+										DAO name:
+										<span className="text-xl text-blue-500 px-3">
+											{DAOData.dao_name.toUpperCase()}
+										</span>
+									</div>
+
+									<div className="font-bold text-black">
+										Description:
+										<span className="text-md text-pink-700 px-3">
+											{DAOData.dao_desc}
+										</span>
+									</div>
+									<div className="font-bold text-black">
+										DAO chain:
+										<span className="text-md text-pink-700 px-3">
+											{' '}
+											{DAOData.dao_chain}
+										</span>
+									</div>
+									<div className="font-bold text-black">
+										Group's creator address:
+										<span className="text-md text-pink-700 px-3">
+											{DAOData.dao_creator_address}
+										</span>
+									</div>
+								</div>
+							) : (
+								<div></div>
+							)}
 						</div>
 					)}
 				</Modal.Body>
