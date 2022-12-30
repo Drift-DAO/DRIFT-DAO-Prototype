@@ -1,6 +1,9 @@
 import 'dotenv/config';
 import './database/conn.js';
 import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import Msgs from './database/models/MsgSchema.js';
 import cors from 'cors';
 import ContactFormRouter from './router/ContactFormRouter.js';
 import DAORouter from './router/DAORouter.js';
@@ -20,14 +23,45 @@ app.use(
 	})
 );
 
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors: { origin: '*' } });
+
+io.on('connection', (socket) => {
+	socket.on('join_room', (data) => {
+		socket.join(data);
+	});
+
+	socket.on('send_message', async (data) => {
+		socket.to(data.room).emit('receive_message', data);
+		console.log('got the data: ', data);
+		try {
+			const newData = new Msgs({
+				room: data.room,
+				msg: data.msg,
+				sender: data.sender,
+			});
+			const result = await newData.save();
+			console.log(`Result: ${result}`);
+		} catch (err) {
+			console.log(`error: ${err}`);
+		}
+	});
+});
+
 app.get('/', (req, res) => {
 	res.send('hello world');
+});
+
+app.get('/:room', async (req, res) => {
+	const myroom = req.params.room;
+	const msgs = await Msgs.find({ room: myroom });
+	res.send(msgs);
 });
 
 app.use('/contactForm', ContactFormRouter);
 app.use('/DAO', DAORouter);
 app.use('/voting', VotingRouter);
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
 	console.log(`App started on http://localhost:${PORT}`);
 });
