@@ -17,6 +17,7 @@ import {
 
 const MainProposal = () => {
 	const leftSide = useSelector((state) => state.leftRight.leftSide);
+	const dao_id = useSelector((state) => state.leftRight.dao_id);
 	const value = useSelector((state) => state.refreshPage.value);
 	const [allProposals, setAllProposals] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const MainProposal = () => {
 	const fetchAllProposals = async () => {
 		setLoading(true);
 		axios
-			.get('http://127.0.0.1:4000/voting/63ad191d039b088a4d250f10')
+			.get('http://127.0.0.1:4000/voting/dao_id')
 			.then(async (res) => {
 				let provider = new ethers.providers.Web3Provider(window.ethereum);
 				await provider.send('eth_requestAccounts', []);
