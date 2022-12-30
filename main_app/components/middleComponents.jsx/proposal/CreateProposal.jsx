@@ -16,7 +16,7 @@ import {
 } from '@vocdoni/sdk';
 
 const CreateProposal = () => {
-	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
+	const { leftSide, rightSide, dao_id } = useSelector((state) => state.leftRight);
 	const myDispatch = useDispatch();
 
 	const [currState, setCurrState] = React.useState('set options');
@@ -131,7 +131,7 @@ const CreateProposal = () => {
 			const electionId = await client.createElection(election);
 			axios
 				.post('http://127.0.0.1:4000/voting', {
-					dao_id: '63ad191d039b088a4d250f10',
+					dao_id,
 					electionId,
 				})
 				.then((res) => {

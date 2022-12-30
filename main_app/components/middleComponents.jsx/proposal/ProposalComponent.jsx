@@ -4,7 +4,7 @@ import { Button, Progress } from '@nextui-org/react';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import swal from 'sweetalert2';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeValue } from '../../../redux/slices/refreshPageSlice';
 import {
 	Election,
@@ -17,11 +17,13 @@ import {
 
 const ProposalComponent = ({ prp }) => {
 	const [userHasVoted, setUserHasVoted] = useState(-1);
+	const userAddr = useSelector((state) => state.addr.myAddress);
+	
 	const myDispatch = useDispatch();
 
 	useEffect(() => {
 		axios
-			.get(`http://127.0.0.1:4000/voting/deependu/${prp._id}`)
+			.get(`http://127.0.0.1:4000/voting/${userAddr}/${prp._id}`)
 			.then((res) => {
 				setUserHasVoted(res.data.option);
 			})
@@ -47,7 +49,7 @@ const ProposalComponent = ({ prp }) => {
 			const voteId = await client.submitVote(vote);
 			axios
 				.post(`http://127.0.0.1:4000/voting/vote`, {
-					userAddr: 'deependu',
+					userAddr: userAddr,
 					electionId: prp._id,
 					option: i,
 				})

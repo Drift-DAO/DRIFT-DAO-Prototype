@@ -42,9 +42,12 @@ const LeftBar = () => {
 							<div>
 								{allDAOs.map((dao, idx) => (
 									<div key={idx}>
-						<DaoIconComponent name={dao.dao_name} img={dao.dao_logo} active={true} />
-
-                  </div>
+										<DaoIconComponent
+											name={dao.dao_name}
+											img={dao.dao_logo}
+											dao_id={dao._id}
+										/>
+									</div>
 								))}
 							</div>
 						)}

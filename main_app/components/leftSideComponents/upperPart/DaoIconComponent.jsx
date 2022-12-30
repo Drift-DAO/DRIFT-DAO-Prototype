@@ -2,11 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLeftSide } from '../../../redux/slices/leftRightSlice';
+import { changeLeftSide,changeDAOId  } from '../../../redux/slices/leftRightSlice';
 
-const DaoIconComponent = ({ img, name, active}) => {
+const DaoIconComponent = ({ img, name,dao_id }) => {
 	const myDispatch = useDispatch();
-	const currLeft = useSelector((state)=>state.leftRight.leftSide)
+	const currLeft = useSelector((state) => state.leftRight.leftSide);
+	const active = currLeft===name;
+	if(active){
+		myDispatch(changeDAOId(dao_id))
+	}
 	const changeLeftSideBtnClick = async () => {
 		myDispatch(changeLeftSide(name));
 	};
