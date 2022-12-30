@@ -16,7 +16,9 @@ import {
 } from '@vocdoni/sdk';
 
 const CreateProposal = () => {
-	const { leftSide, rightSide, dao_id } = useSelector((state) => state.leftRight);
+	const { leftSide, rightSide, dao_id } = useSelector(
+		(state) => state.leftRight
+	);
 	const myDispatch = useDispatch();
 
 	const [currState, setCurrState] = React.useState('set options');
@@ -88,7 +90,7 @@ const CreateProposal = () => {
 			// for (let i = 0; i < options; i++) {
 			// 	console.log(`option ${i + 1}: `, optionChoices[i]);
 			// }
-			
+
 			setPosting(true);
 			let provider = new ethers.providers.Web3Provider(window.ethereum);
 			await provider.send('eth_requestAccounts', []);
@@ -103,9 +105,16 @@ const CreateProposal = () => {
 				await client.collectFaucetTokens();
 			}
 
+			const res = await axios.get(
+				`http://127.0.0.1:4000/DAO/allMembers/${dao_id}`
+			);
+
 			const census = new PlainCensus();
-			census.add('0x4e76d6B2404d59D01bD50e159A775044d37debdA');
-			census.add('0x31B0F3eeD8cAFA7D09C862b7779AAc826F3c4468');
+
+			for (let m = 0; m < res.data.length; m++) {
+				// console.log("address is: ",res.data[m].userAddr )
+				census.add(res.data[m].userAddr);
+			}
 
 			const endDate = new Date();
 			endDate.setMinutes(endDate.getMinutes() + 5);

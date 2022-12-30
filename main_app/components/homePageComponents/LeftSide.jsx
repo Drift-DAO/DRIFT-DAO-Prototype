@@ -19,7 +19,7 @@ const LeftBar = () => {
 			.get(`http://127.0.0.1:4000/DAO/memberOf/${userAddr}`)
 			.then((res) => {
 				setAllDAOs(res.data);
-				console.log('res.data', res.data);
+				// console.log('res.data', res.data);
 				setLoading(false);
 			})
 			.catch((err) => {
