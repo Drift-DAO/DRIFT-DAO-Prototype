@@ -29,7 +29,7 @@ const MainProposal = () => {
 	const fetchAllProposals = async () => {
 		setLoading(true);
 		axios
-			.get('http://127.0.0.1:4000/voting/dao_id')
+			.get(`http://127.0.0.1:4000/voting/${dao_id}`)
 			.then(async (res) => {
 				let provider = new ethers.providers.Web3Provider(window.ethereum);
 				await provider.send('eth_requestAccounts', []);

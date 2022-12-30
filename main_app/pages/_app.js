@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import 'simplebar-react/dist/simplebar.min.css';
-
+import Head from 'next/head';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
 	getDefaultWallets,
@@ -42,6 +42,18 @@ export default function App({ Component, pageProps }) {
 						overlayBlur: 'large',
 					})}
 				>
+					<Head>
+						<title>App - Drift DAO</title>
+						<meta charSet="UTF-8" />
+						<meta
+							name="description"
+							content="A unified platform to get updated from all your DAOs."
+						/>
+						<meta
+							name="description"
+							content="A platform for the next generation to manage all your DAOs."
+						/>
+					</Head>
 					<Component {...pageProps} />
 				</RainbowKitProvider>
 			</WagmiConfig>
