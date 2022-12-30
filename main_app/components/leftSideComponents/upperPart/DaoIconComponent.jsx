@@ -4,10 +4,9 @@ import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLeftSide } from '../../../redux/slices/leftRightSlice';
 
-const DaoIconComponent = ({ img, name}) => {
+const DaoIconComponent = ({ img, name, active}) => {
 	const myDispatch = useDispatch();
 	const currLeft = useSelector((state)=>state.leftRight.leftSide)
-	const active = currLeft===name;
 	const changeLeftSideBtnClick = async () => {
 		myDispatch(changeLeftSide(name));
 	};

@@ -11,8 +11,11 @@ import {
 	Checkbox,
 	Avatar,
 } from '@nextui-org/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeValue } from '../../redux/slices/refreshPageSlice';
 
 const HomeRight = () => {
+	const userAddr = useSelector((state) => state.addr.myAddress);
 	const [DAOName, setDAOName] = useState('');
 	const [visibleError, setVisibleError] = useState(false);
 	const [visibleDAO, setVisibleDAO] = useState(false);
@@ -32,10 +35,12 @@ const HomeRight = () => {
 		}
 		axios
 			.post(`http://127.0.0.1:4000/DAO/join`, {
-				userAddr: 'nitesh',
+				userAddr: userAddr,
 				daoId: DAOData._id,
 			})
 			.then((res) => {
+				const myDispatch = useDispatch();
+				myDispatch(changeValue());
 				setVisibleDAO(false);
 				swal.fire('Joined', 'You have successfully joined the DAO.', 'success');
 			})
@@ -47,7 +52,7 @@ const HomeRight = () => {
 
 	const searchDAO = async () => {
 		axios
-			.get(`http://127.0.0.1:4000/DAO?name=${DAOName}&userAddr=nitesh`)
+			.get(`http://127.0.0.1:4000/DAO?name=${DAOName}&userAddr=${userAddr}`)
 			.then((res) => {
 				if (res.data === 'no dao found') {
 					setVisibleError(true);

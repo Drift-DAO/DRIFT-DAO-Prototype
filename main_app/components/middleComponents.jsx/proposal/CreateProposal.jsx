@@ -82,12 +82,13 @@ const CreateProposal = () => {
 				}
 			}
 
-			console.log('proposal heading is: ', heading);
-			console.log('proposal description is: ', desc);
-			console.log('proposal options are: ', options);
-			for (let i = 0; i < options; i++) {
-				console.log(`option ${i + 1}: `, optionChoices[i]);
-			}
+			// console.log('proposal heading is: ', heading);
+			// console.log('proposal description is: ', desc);
+			// console.log('proposal options are: ', options);
+			// for (let i = 0; i < options; i++) {
+			// 	console.log(`option ${i + 1}: `, optionChoices[i]);
+			// }
+			
 			setPosting(true);
 			let provider = new ethers.providers.Web3Provider(window.ethereum);
 			await provider.send('eth_requestAccounts', []);
