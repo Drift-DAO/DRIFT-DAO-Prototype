@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { Tooltip } from '@nextui-org/react';
-import { Modal, useModal, Text } from '@nextui-org/react';
+import { Modal, useModal, Text, Avatar } from '@nextui-org/react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 const DAO_detail = () => {
 	const [visible, setVisible] = useState(false);
+	const { dao_id } = useSelector((state) => state.leftRight);
+	const [loading, setLoading] = useState(false);
+	const [DAOData, setDAOData] = useState({});
 
-	const daoDetailsBtn = () => {
+	const daoDetailsBtn = async () => {
 		setVisible(true);
+		setLoading(true);
+		const result = await axios.get(`http://127.0.0.1:4000/DAO/${dao_id}`);
+		console.log('fetched result is:', result.data);
+		setDAOData(result.data);
+		setLoading(false);
 	};
 
 	const closeHandler = () => {
@@ -43,193 +54,30 @@ const DAO_detail = () => {
 					</div>
 				</Modal.Header>
 				<Modal.Body>
-					{/* <div className="text-center">hello world</div> */}
-					<Text id="modal-description">
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et. Cras mattis consectetur purus sit amet
-						fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-						quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-						Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-						Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-						dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-						ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-						purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-						egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-						vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-						nisl consectetur et.
-					</Text>
+					{loading ? (
+						<div className="flex justify-center">
+							<ReactLoading
+								type="spinningBubbles"
+								color="purple"
+								height={45}
+								width={45}
+								className="my-auto"
+							/>
+						</div>
+					) : (
+						<div>
+							<div>
+								<Avatar src={DAOData.dao_logo} css={{ size: '$20' }} />
+							</div>
+							<div>DAO name: {DAOData.dao_name.toUpperCase()}</div>
+							<div>
+								DAO short description: {DAOData.dao_short_desc.toUpperCase()}
+							</div>
+							<div>DAO short description: {DAOData.dao_desc}</div>
+							<div>DAO chain: {DAOData.dao_chain}</div>
+							<div>Group's creator address: {DAOData.dao_creator_address}</div>
+						</div>
+					)}
 				</Modal.Body>
 				<Modal.Footer>
 					<div className="flex justify-end">
