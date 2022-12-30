@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input_and_Button from './lowerPart/Input_and_Button';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ const axiosInstance = axios.create({
 
 const MainChatRoom = () => {
 	const myAddr = useSelector((state) => state.addr.myAddress);
+	const msgEndRef = useRef(null);
 
 	const [loading, setLoading] = useState(false);
 	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
@@ -28,6 +29,10 @@ const MainChatRoom = () => {
 	});
 
 	socket.emit('join_room', `${leftSide}-${rightSide}`);
+
+	useEffect(() => {
+		msgEndRef.current?.scrollIntoView();
+	}, [msgs]);
 
 	useEffect(() => {
 		socket.on('receive_message', (data) => {
@@ -82,6 +87,7 @@ const MainChatRoom = () => {
 								)}
 							</div>
 						))}
+						<div ref={msgEndRef}></div>
 					</SimpleBar>
 				)}
 			</div>
