@@ -88,7 +88,7 @@ const Home = () => {
 			}
 		} catch (err) {
 			console.log('an error occurred: ', err);
-			Swal('Error', 'an unexpected error occurred', 'error');
+			Swal.fire("Error", "an unexpected error occurred", "error");
 		}
 		setLoading(false);
 	};
