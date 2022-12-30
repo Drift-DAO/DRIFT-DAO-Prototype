@@ -1,15 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
-import { useDisconnect } from 'wagmi';
 import { motion } from 'framer-motion';
 import { Tooltip } from '@nextui-org/react';
 import { Modal, Input, Row, Checkbox, Button, Text } from '@nextui-org/react';
 import { Router } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { changeAddr } from '../../../redux/slices/addrSlice';
 
 const ExitButton = () => {
+	const myDispatch = useDispatch();
 	const [visible, setVisible] = React.useState(false);
-
-	const { disconnect } = useDisconnect();
 
 	const closeHandler = () => {
 		// console.log("cancelled")
@@ -21,7 +21,7 @@ const ExitButton = () => {
 	};
 
 	const logoutUser = async () => {
-		disconnect();
+		myDispatch(changeAddr(''));
 	};
 
 	return (
@@ -47,7 +47,7 @@ const ExitButton = () => {
 						logout
 					</div>
 				</Modal.Header>
-				
+
 				<Modal.Body>
 					<div className="text-lg text-center">Do you want to logout?</div>
 				</Modal.Body>

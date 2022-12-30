@@ -124,6 +124,7 @@ DAORouter.post('/leave', async (req, res) => {
 	try {
 		const { userAddr, daoId } = req.body;
 		const result = await DAOmemberModel.findOneAndDelete({ userAddr, daoId });
+		// console.log('result is: ', result);
 		res.send('success');
 	} catch (e) {
 		res.send(e);

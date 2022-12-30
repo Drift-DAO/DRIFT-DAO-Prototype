@@ -12,14 +12,9 @@ const DaoIconComponent = ({ img, name, dao_id }) => {
 	const currLeft = useSelector((state) => state.leftRight.leftSide);
 	const active = currLeft === name;
 
-	useEffect(() => {
-		if (active) {
-			myDispatch(changeDAOId(dao_id));
-		}
-	}, []);
-
 	const changeLeftSideBtnClick = async () => {
 		myDispatch(changeLeftSide(name));
+		myDispatch(changeDAOId(dao_id));
 	};
 	return (
 		<div

@@ -2,9 +2,16 @@ import React from 'react';
 import { Tooltip } from '@nextui-org/react';
 import { Modal, Input, Row, Button, Loading } from '@nextui-org/react';
 import { useSelector, useDispatch } from 'react-redux';
+import { changeLeftSide } from '../../../redux/slices/leftRightSlice';
+import { changeValue } from '../../../redux/slices/refreshPageSlice';
+import axios from 'axios';
 
 const Exit_DAO = () => {
-	const { leftSide, rightSide } = useSelector((state) => state.leftRight);
+	const myDispatch = useDispatch();
+	const { leftSide, rightSide, dao_id } = useSelector(
+		(state) => state.leftRight
+	);
+	const userAddr = useSelector((state) => state.addr.myAddress);
 	const [visible, setVisible] = React.useState(false);
 	const [leaving, setLeaving] = React.useState(false);
 
@@ -14,14 +21,22 @@ const Exit_DAO = () => {
 
 	const leaveBtnClicked = () => {
 		setVisible(true);
+		setLeaving(false);
 	};
 
 	const leaveDAO = async () => {
 		setLeaving(true);
-		setTimeout(() => {
-			setLeaving(false);
-		}, 2000);
+		console.log('dao_id is: ', dao_id);
+		const res = await axios.post('http://127.0.0.1:4000/DAO/leave', {
+			userAddr,
+			daoId: dao_id,
+		});
+		console.log('result is: ', res.data);
 		console.log('left DAO', leftSide);
+		myDispatch(changeLeftSide('home'));
+		myDispatch(changeValue());
+		setLeaving(false);
+		setVisible(false);
 	};
 
 	return (

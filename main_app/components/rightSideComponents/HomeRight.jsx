@@ -15,6 +15,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeValue } from '../../redux/slices/refreshPageSlice';
 
 const HomeRight = () => {
+	const myDispatch = useDispatch();
+
 	const userAddr = useSelector((state) => state.addr.myAddress);
 	const [DAOName, setDAOName] = useState('');
 	const [visibleError, setVisibleError] = useState(false);
@@ -39,13 +41,13 @@ const HomeRight = () => {
 				daoId: DAOData._id,
 			})
 			.then((res) => {
-				const myDispatch = useDispatch();
 				myDispatch(changeValue());
 				setVisibleDAO(false);
 				swal.fire('Joined', 'You have successfully joined the DAO.', 'success');
 			})
 			.catch((err) => {
 				setVisibleDAO(false);
+				console.log('error occurred: ', err);
 				swal.fire('Error', 'Sorry, an unexpected error occurred', 'error');
 			});
 	};
