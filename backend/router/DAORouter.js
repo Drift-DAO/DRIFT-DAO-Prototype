@@ -63,6 +63,16 @@ DAORouter.get('/memberOf/:userAddr', async (req, res) => {
 	}
 });
 
+DAORouter.get('/allMembers/:daoId', async (req, res) => {
+	try {
+		const daoId = req.params.daoId;
+		const result = await DAOmemberModel.find({ daoId });
+		res.send(result);
+	} catch (e) {
+		res.send(e);
+	}
+});
+
 DAORouter.post('/', async (req, res) => {
 	try {
 		const {
