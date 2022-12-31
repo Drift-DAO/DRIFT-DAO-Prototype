@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeinputVal } from '../../../../redux/slices/chatRoomSlice';
 import axios from 'axios';
 import socketIO from 'socket.io-client';
-const ENDPOINT = 'http://localhost:4000';
+const ENDPOINT = 'https://www.backend.drift-dao.com';
 const socket = socketIO(ENDPOINT, { transport: ['websocket'] });
 // the axios instance with the api endpoint
 const axiosInstance = axios.create({
-	baseURL: 'http://localhost:4000',
+	baseURL: 'https://www.backend.drift-dao.com',
 });
 
 const Input_and_Button = ({ setMsgs, msgs }) => {
