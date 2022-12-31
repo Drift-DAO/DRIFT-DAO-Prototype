@@ -15,7 +15,9 @@ const DAO_detail = () => {
 	const daoDetailsBtn = async () => {
 		setVisible(true);
 		setLoading(true);
-		const result = await axios.get(`http://127.0.0.1:4000/DAO/${dao_id}`);
+		const result = await axios.get(
+			`https://www.backend.drift-dao.com/DAO/${dao_id}`
+		);
 		// console.log('fetched result is:', result.data);
 		setDAOData(result.data);
 		setLoading(false);

@@ -106,7 +106,7 @@ const OnBoardDAO = () => {
 			try {
 				const result = await axios({
 					method: 'post',
-					url: 'http://127.0.0.1:4000/DAO',
+					url: 'https://www.backend.drift-dao.com/DAO',
 					data: {
 						...formdata,
 						dao_creator_address,

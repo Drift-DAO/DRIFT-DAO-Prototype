@@ -27,10 +27,13 @@ const Exit_DAO = () => {
 	const leaveDAO = async () => {
 		setLeaving(true);
 		// console.log('dao_id is: ', dao_id);
-		const res = await axios.post('http://127.0.0.1:4000/DAO/leave', {
-			userAddr,
-			daoId: dao_id,
-		});
+		const res = await axios.post(
+			'https://www.backend.drift-dao.com/DAO/leave',
+			{
+				userAddr,
+				daoId: dao_id,
+			}
+		);
 		// console.log('result is: ', res.data);
 		// console.log('left DAO', leftSide);
 		myDispatch(changeLeftSide('home'));

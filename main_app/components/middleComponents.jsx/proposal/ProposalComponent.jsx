@@ -18,12 +18,12 @@ import {
 const ProposalComponent = ({ prp }) => {
 	const [userHasVoted, setUserHasVoted] = useState(-1);
 	const userAddr = useSelector((state) => state.addr.myAddress);
-	
+
 	const myDispatch = useDispatch();
 
 	useEffect(() => {
 		axios
-			.get(`http://127.0.0.1:4000/voting/${userAddr}/${prp._id}`)
+			.get(`https://www.backend.drift-dao.com/voting/${userAddr}/${prp._id}`)
 			.then((res) => {
 				setUserHasVoted(res.data.option);
 			})
@@ -48,7 +48,7 @@ const ProposalComponent = ({ prp }) => {
 			const vote = new Vote([i]);
 			const voteId = await client.submitVote(vote);
 			axios
-				.post(`http://127.0.0.1:4000/voting/vote`, {
+				.post(`https://www.backend.drift-dao.com/voting/vote`, {
 					userAddr: userAddr,
 					electionId: prp._id,
 					option: i,
@@ -99,7 +99,7 @@ const ProposalComponent = ({ prp }) => {
 										{prp._questions[0].choices[i].title.default}
 										{isProposalOver ? (
 											<span className="text-gray-600 pl-3 pr-2 ">
-													Votes:{' '}
+												Votes:{' '}
 												<span className="font-bold text-blue-600">
 													{prp._results[0][i]}
 												</span>

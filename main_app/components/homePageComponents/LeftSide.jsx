@@ -16,7 +16,7 @@ const LeftBar = () => {
 	useEffect(() => {
 		setLoading(true);
 		axios
-			.get(`http://127.0.0.1:4000/DAO/memberOf/${userAddr}`)
+			.get(`https://www.backend.drift-dao.com/DAO/memberOf/${userAddr}`)
 			.then((res) => {
 				setAllDAOs(res.data);
 				// console.log('res.data', res.data);

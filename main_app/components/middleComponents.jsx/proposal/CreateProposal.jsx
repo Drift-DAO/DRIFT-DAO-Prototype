@@ -106,7 +106,7 @@ const CreateProposal = () => {
 			}
 
 			const res = await axios.get(
-				`http://127.0.0.1:4000/DAO/allMembers/${dao_id}`
+				`https://www.backend.drift-dao.com/DAO/allMembers/${dao_id}`
 			);
 
 			const census = new PlainCensus();
@@ -139,7 +139,7 @@ const CreateProposal = () => {
 			election.addQuestion(heading, desc, myOptions);
 			const electionId = await client.createElection(election);
 			axios
-				.post('http://127.0.0.1:4000/voting', {
+				.post('https://www.backend.drift-dao.com/voting', {
 					dao_id,
 					electionId,
 				})
