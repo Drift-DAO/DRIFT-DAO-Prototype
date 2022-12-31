@@ -8,7 +8,7 @@ const About = () => {
 			<div className="sm:flex items-center justify-around sm:h-screen py-10">
 				<div className="mx-3">
 					<Card
-						img="/images/team/Deependu.jpeg"
+						img="/images/team/deependu.jpg"
 						name="Deependu Jha"
 						role="BlockChain Developer"
 						email="deependujha21@gmail.com"

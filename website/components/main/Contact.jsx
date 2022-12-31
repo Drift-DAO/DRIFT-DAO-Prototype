@@ -5,7 +5,7 @@ import Footer from '../layout/Footer';
 
 const Contact = () => {
 	return (
-    <div className="bg-[url('/images/bg1.jpg')] bg-fixed" id="contact">
+    <div className="bg-[url('/images/bg-3.jpg')] bg-fixed" id="contact">
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="sm:flex items-center justify-center sm:h-screen mt-5">
           <div

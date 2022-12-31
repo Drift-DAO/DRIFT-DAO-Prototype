@@ -1,35 +1,43 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const Product = () => {
-  return (
-    <div className="bg-[url('/images/bg1.jpg')] " id="product">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="">
-          <div className="text-white text-6xl sm:pt-60 pt-20 md:pt-48 text-center">
-            All in one
-          </div>
-          <div className="text-white text-6xl text-center">place</div>
-          <div className="text-white mt-10 sm:text-xl sm:ml-8 mx-5 text-lg md:mb-20">
-            <li>Access all your DAOs at one place</li>
-            <li>Chat with fellow DAO members</li>
-            <li>Create posts in forums & discuss zones</li>
-            <li>Vote on RFP (request for proposals)</li>
-            <li>Vote on snapshots</li>
-            <li>And, much more</li>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <Image
-            src="/images/screen_img.svg"
-            height="200"
-            width="650"
-            alt="load.."
-          />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="bg-[url('/images/bg-3.jpg')] " id="product">
+			<div className="py-24">
+				<div className="font-bold font-mono text-white text-5xl text-center">
+					All in one
+				</div>
+				<div className="font-bold font-mono text-white text-5xl text-center py-2">
+					place
+				</div>
+				<div className="md:flex justify-around items-center justify-items-center md:my-16 ">
+					<div
+						className="justify-center justify-items-center px-3"
+						// style={{ height: '80vh', width: '40vw' }}
+					>
+						<Image
+							src="/images/app-drift-dao.png"
+							height={'600'}
+							width={'1012'}
+							alt="load.."
+						/>
+					</div>
+					<div className="text-pink-500 font-bold font-mono text-xl my-24 mx-8">
+						<ul className="mx-4" style={{ listStyleType: 'circle' }}>
+							<li className="my-2">Access all your DAOs in one app 🧑‍💻</li>
+							<li className="my-2">Chat with fellow DAO members 📱💬</li>
+							<li className="my-2">Create posts in discussion forum 🐧</li>
+							<li className="my-2">Vote on RFPs 🔥 </li>
+							<li className="my-2">Vote on snapshots 🗳️</li>
+							<li className="my-2">Composable data 🥳</li>
+							<li className="my-2">And, much more...🚀</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Product;
