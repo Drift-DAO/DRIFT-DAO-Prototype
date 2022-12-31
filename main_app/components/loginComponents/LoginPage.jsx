@@ -65,7 +65,7 @@ const Home = () => {
 				},
 			]);
 			const score = await scorer.getScore(userAddress);
-			console.log('score is: ', score);
+			// console.log('score is: ', score);
 			if (score >= 2) {
 				let res = await orbis.isConnected();
 				if (!res) {
@@ -88,7 +88,7 @@ const Home = () => {
 			}
 		} catch (err) {
 			console.log('an error occurred: ', err);
-			Swal.fire("Error", "an unexpected error occurred", "error");
+			Swal.fire('Error!', 'an unexpected error occurred.', 'error');
 		}
 		setLoading(false);
 	};

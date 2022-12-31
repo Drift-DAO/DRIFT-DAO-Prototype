@@ -16,7 +16,7 @@ const DAO_detail = () => {
 		setVisible(true);
 		setLoading(true);
 		const result = await axios.get(`http://127.0.0.1:4000/DAO/${dao_id}`);
-		console.log('fetched result is:', result.data);
+		// console.log('fetched result is:', result.data);
 		setDAOData(result.data);
 		setLoading(false);
 	};

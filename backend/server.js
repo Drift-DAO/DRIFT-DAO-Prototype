@@ -62,5 +62,5 @@ app.get('/:room', async (req, res) => {
 	res.send(msgs);
 });
 httpServer.listen(PORT, () => {
-	console.log(`App started on http://localhost:${PORT}`);
+	// console.log(`App started on http://localhost:${PORT}`);
 });

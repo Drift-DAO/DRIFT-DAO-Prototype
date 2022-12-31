@@ -50,7 +50,7 @@ const OnBoardDAO = () => {
 			// send ether and pay to change state within the blockchain.
 			// For this, you need the account signer...
 			let signer = provider.getSigner();
-			console.log(provider);
+			// console.log(provider);
 			const userAddr = await signer.getAddress();
 			dao_creator_address = userAddr;
 			// console.log("user's address is:", userAddr);
@@ -112,10 +112,10 @@ const OnBoardDAO = () => {
 						dao_creator_address,
 					},
 				});
-				console.log(result);
+				// console.log(result);
 				swal({
 					title: 'Welcome to Drift-DAO',
-					text: `We warm-heartedly welcome you to Drift-DAO. Here's your DAO id: ${result.data._id}`,
+					text: `We warm-heartedly welcome you to Drift-DAO.`,
 					icon: 'success',
 				});
 				setformdata(initialValues);

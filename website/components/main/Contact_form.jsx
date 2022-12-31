@@ -79,7 +79,7 @@ const Contact_form = () => {
 					message,
 				},
 			});
-			console.log(result);
+			// console.log(result);
 		}
 	};
 

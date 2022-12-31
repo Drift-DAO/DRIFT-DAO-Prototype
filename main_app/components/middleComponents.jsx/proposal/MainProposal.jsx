@@ -50,7 +50,7 @@ const MainProposal = () => {
 				}
 				setAllProposals(myProposalArray);
 				setLoading(false);
-				console.log('my proposal array is: ', myProposalArray);
+				// console.log('my proposal array is: ', myProposalArray);
 			})
 			.catch((err) => {
 				console.log('error occurred');
